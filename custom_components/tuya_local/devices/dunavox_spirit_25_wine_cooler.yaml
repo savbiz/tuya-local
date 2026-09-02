@@ -1,7 +1,7 @@
 name: Dual-zone wine cooler
 
 products:
-  - id: "c6mozff2a2vgacya"
+  - id: c6mozff2a2vgacya
     manufacturer: Dunavox
     model: Spirit 25
     model_id: DVS-25.65
@@ -14,6 +14,38 @@ entities:
       - id: 1
         type: boolean
         name: switch
+
+  - entity: binary_sensor
+    name: Fault
+    class: problem
+    category: diagnostic
+    dps:
+      - id: 10
+        type: bitfield
+        name: sensor
+        mapping:
+          - dps_val: 0
+            value: false
+          - value: true
+
+      - id: 10
+        type: bitfield
+        name: fault_code
+
+      - id: 10
+        type: bitfield
+        name: description
+        mapping:
+          - dps_val: 0
+            value: "OK"
+          - dps_val: 1
+            value: "Temperature too low"
+          - dps_val: 2
+            value: "Temperature too high"
+          - dps_val: 4
+            value: "Door warning"
+          - dps_val: 8
+            value: "Temperature sensor fault"
 
   - entity: number
     name: Upper zone target temperature
@@ -76,12 +108,12 @@ entities:
         type: string
         name: option
         mapping:
+          - dps_val: white
+            value: White
           - dps_val: blue
             value: Blue
           - dps_val: warm_white
             value: Warm white
-          - dps_val: white
-            value: White
 
   - entity: select
     name: Lamp mode
@@ -117,18 +149,16 @@ entities:
           - dps_val: "100"
             value: "100%"
 
-  - entity: switch
-    name: Child lock
-    icon: "mdi:lock"
+  - entity: lock
+    translation_key: child_lock
     category: config
     dps:
       - id: 5
         type: boolean
-        name: switch
+        name: lock
 
   - entity: select
-    name: Temperature unit
-    icon: "mdi:temperature-celsius"
+    translation_key: temperature_unit
     category: config
     dps:
       - id: 4
@@ -136,6 +166,6 @@ entities:
         name: option
         mapping:
           - dps_val: c
-            value: Celsius
+            value: celsius
           - dps_val: f
-            value: Fahrenheit
+            value: fahrenheit
