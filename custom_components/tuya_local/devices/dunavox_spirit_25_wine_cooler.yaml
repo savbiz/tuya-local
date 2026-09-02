@@ -98,7 +98,7 @@ entities:
             value: 24 hours
           - dps_val: 30min
             value: 30 minutes
-          - dps_val: 1m
+          - dps_val: 1min
             value: 1 minute
 
   - entity: select
